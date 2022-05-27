@@ -25,3 +25,5 @@ Hyperlinks to each of the lab exercises and demos are listed below.
 | --- | --- | 
 {% for activity in demos  %}| {{ activity.demo.module }} | [{{ activity.demo.title }}]({{ site.github.url }}{{ activity.url }}) |
 {% endfor %}
+ 
+-->
