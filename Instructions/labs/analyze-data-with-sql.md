@@ -2,7 +2,6 @@
 lab:
     title: 'Analyze data in a data lake with SQL'
     module: 'Analyze data in a data lake'
-    labprofile: 'https://labondemand.com/AuthenticatedLaunch/111889?providerId=1'
 ---
 
 # Analyze data in a data lake with SQL
