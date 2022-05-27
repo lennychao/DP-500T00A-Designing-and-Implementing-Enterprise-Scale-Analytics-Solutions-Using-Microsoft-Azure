@@ -59,18 +59,17 @@ The script provisions an Azure Synapse Analytics workspace and an Azure Storage 
 1. After the script has completed, in the Azure portal, go to the **dp000-*xxxxxxx*** resource group that it created, and select your Synapse workspace.
 2. In the **Overview** page for your Synapse workspace, in the **Open Synapse Studio** card, select **Open** to open Synapse Studio in a new browser tab; signing in if prompted.
 3. On the left side of Synapse Studio, use the **&rsaquo;&rsaquo;** icon to expand the menu - this reveals the different pages within Synapse Studio that you'll use to manage resources and perform data analytics tasks.
-4. On the **Data** page, view the **Linked** tab and verify that your workspace includes a link to your Azure Data Lake Storage Gen2 storage account, which should have a name similar to **synapse*xxxxxxx* (Primary - datalake*xxxxxxx*)**.
-5. Expand your storage account and verify that it contains a file system container named **files**.
-6. Select the **files** container, and note that it contains folders named **sales** and **synapse**. The **synapse** folder is used by Azure Synapse, and the **sales** folder contains the data files you are going to query.
-7. Open the **sales** folder and the **orders** folder it contains, and observe that the **orders** folder contains .csv files for three years of sales data.
-8. Right-click any of the files and select **Preview** to see the data it contains. Note that the files do not contain a header row, so you can unselect the option to display column headers.
+4. On the **Manage** page, select the **Apache Spark pools** tab and note that a Spark pool with a name similar to **spark*xxxxxxx*** has been provisioned in the workspace. Later you will use this Spark pool to load and analyze data from files in the data lake storage for the workspace.
+5. On the **Data** page, view the **Linked** tab and verify that your workspace includes a link to your Azure Data Lake Storage Gen2 storage account, which should have a name similar to **synapse*xxxxxxx* (Primary - datalake*xxxxxxx*)**.
+6. Expand your storage account and verify that it contains a file system container named **files**.
+7. Select the **files** container, and note that it contains folders named **sales** and **synapse**. The **synapse** folder is used by Azure Synapse, and the **sales** folder contains the data files you are going to query.
+8. Open the **sales** folder and the **orders** folder it contains, and observe that the **orders** folder contains .csv files for three years of sales data.
+9. Right-click any of the files and select **Preview** to see the data it contains. Note that the files do not contain a header row, so you can unselect the option to display column headers.
 
 ### Use Spark to explore data
 
-1. Select any of the files in the **orders** folder, and then in the **New notebook** list on the toolbar, select **Load to DataFrame**. A DataFrame is a structure in Spark that represents a tabular dataset.
-2. In the new **Notebook 1** tab that opens, in the **Attach to** list, select your Spark pool (**spark*xxxxxxx***). 
- 
-    Then use the **&#9655; Run all** button to run all of the cells in the notebook (there's currently only one!).
+1. Select any of the files in the **orders** folder, and then in the **New notebook** list on the toolbar, select **Load to DataFrame**. A dataframe is a structure in Spark that represents a tabular dataset.
+2. In the new **Notebook 1** tab that opens, in the **Attach to** list, select your Spark pool (**spark*xxxxxxx***). Then use the **&#9655; Run all** button to run all of the cells in the notebook (there's currently only one!).
 
     Since this is the first time you've run any Spark code in this session, the Spark pool must be started. This means that the first run in the session can take a few minutes. Subsequent runs will be quicker.
 
@@ -97,9 +96,9 @@ The script provisions an Azure Synapse Analytics workspace and an Azure Storage 
 
 6. Use the **&#9655;** button to the left of the code cell to run just that cell, and review the results.
 
-    The DataFrame now includes data from all of the files, but the column names are not useful. Spark uses a "schema-on-read" approach to try to determine appropriate data types for the columns based on the data they contain, and if a header row is present in a text file it will be used to identify the column names. Alternatively, you can define an explicit schema for the DataFrame.
+    The dataframe now includes data from all of the files, but the column names are not useful. Spark uses a "schema-on-read" approach to try to determine appropriate data types for the columns based on the data they contain, and if a header row is present in a text file it can be used to identify the column names (by specifying a **header=True** parameter in the **load** function). Alternatively, you can define an explicit schema for the dataframe.
 
-7. Modify the code as follows (replacing *datalakexxxxxxx*), to define an explicit schema for the DataFrame that includes the column names and data types.
+7. Modify the code as follows (replacing *datalakexxxxxxx*), to define an explicit schema for the dataframe that includes the column names and data types.
 
     ```Python
     %%pyspark
@@ -107,34 +106,34 @@ The script provisions an Azure Synapse Analytics workspace and an Azure Storage 
     from pyspark.sql.functions import *
 
     orderSchema = StructType([
-    StructField("SalesOrderNumber", StringType()),
-    StructField("SalesOrderLineNumber", IntegerType()),
-    StructField("OrderDate", DateType()),
-    StructField("CustomerName", StringType()),
-    StructField("Email", StringType()),
-    StructField("Item", StringType()),
-    StructField("Quantity", IntegerType()),
-    StructField("UnitPrice", FloatType()),
-    StructField("Tax", FloatType())
-    ])
+        StructField("SalesOrderNumber", StringType()),
+        StructField("SalesOrderLineNumber", IntegerType()),
+        StructField("OrderDate", DateType()),
+        StructField("CustomerName", StringType()),
+        StructField("Email", StringType()),
+        StructField("Item", StringType()),
+        StructField("Quantity", IntegerType()),
+        StructField("UnitPrice", FloatType()),
+        StructField("Tax", FloatType())
+        ])
 
     df = spark.read.load('abfss://files@datalakexxxxxxx.dfs.core.windows.net/sales/orders/*.csv', format='csv', schema=orderSchema)
     display(df.limit(100))
     ```
 
-8. Under the results, use the **+ Code** button to add a new code cell to the notebook. Then in the new cell, add the following code to display the DataFrame's schema:
+8. Under the results, use the **+ Code** button to add a new code cell to the notebook. Then in the new cell, add the following code to display the dataframe's schema:
 
     ```Python
     df.printSchema()
     ```
 
-9. Run the new cell and verify that the DataFrame schema matches the **orderSchema** you defined. The **printSchema** function can be useful when using a dataFrame with an automatically inferred schema.
+9. Run the new cell and verify that the dataframe schema matches the **orderSchema** you defined. The **printSchema** function can be useful when using a dataframe with an automatically inferred schema.
 
-## Analyze data in a DataFrame
+## Analyze data in a dataframe
 
-The **DataFrame** object in Spark is similar to a Pandas dataframe in Python, and includes a wide range of functions that you can use to manipulate, filter, group, and otherwise analyze the data it contains.
+The **dataframe** object in Spark is similar to a Pandas dataframe in Python, and includes a wide range of functions that you can use to manipulate, filter, group, and otherwise analyze the data it contains.
 
-### Filter a DataFrame
+### Filter a dataframe
 
 1. Add a new code cell to the notebook, and enter the following code in it:
 
@@ -146,9 +145,9 @@ The **DataFrame** object in Spark is similar to a Pandas dataframe in Python, an
     ```
 
 2. Run the new code cell, and review the results. Observe the following details:
-    - When you perform an operation on a DataFrame, the result is a new DataFrame (in this case, a new **customers** DataFrame is created by selecting a specific subset of columns from the **df** DataFrame)
-    - DataFrames provide functions such as **count** and **distinct** that can be used to summarize and filter the data they contain.
-    - The `DataFrame['Field1', 'Field2', ...]` syntax is a shorthand way of defining a subset of column. You can also use **select** method, so the first line of the code above could be written as `customers = df.select("CustomerName", "Email")`
+    - When you perform an operation on a dataframe, the result is a new dataframe (in this case, a new **customers** dataframe is created by selecting a specific subset of columns from the **df** dataframe)
+    - dataframes provide functions such as **count** and **distinct** that can be used to summarize and filter the data they contain.
+    - The `dataframe['Field1', 'Field2', ...]` syntax is a shorthand way of defining a subset of column. You can also use **select** method, so the first line of the code above could be written as `customers = df.select("CustomerName", "Email")`
 
 3. Modify the code as follows:
 
@@ -159,9 +158,9 @@ The **DataFrame** object in Spark is similar to a Pandas dataframe in Python, an
     display(customers.distinct())
     ```
 
-4. Run the modified code to view the customers who have purchased the *Road-250 Red, 52* product. Note that you can "chain" multiple functions together so that the output of one function becomes the input for the next - in this case, the DataFrame created by the **select** method is the source DataFrame for the **where** method that is used to apply filtering criteria.
+4. Run the modified code to view the customers who have purchased the *Road-250 Red, 52* product. Note that you can "chain" multiple functions together so that the output of one function becomes the input for the next - in this case, the dataframe created by the **select** method is the source dataframe for the **where** method that is used to apply filtering criteria.
 
-### Aggregate and group data in a DataFrame
+### Aggregate and group data in a dataframe
 
 1. Add a new code cell to the notebook, and enter the following code in it:
 
@@ -179,11 +178,11 @@ The **DataFrame** object in Spark is similar to a Pandas dataframe in Python, an
     display(yearlySales)
     ```
 
-4. Run the code cell you added, and note that the results show the number of sales orders per year. Note that the **select** method includes a SQL **year** function to extract the year component of the *OrderDate* field, and then an **alias** method is used to assign a columm name to the extracted year value. The data is then grouped by the derived *Year* column and the count of rows in each group is calculated before finally the **orderBy** method is used to sort the resulting DataFrame.
+4. Run the code cell you added, and note that the results show the number of sales orders per year. Note that the **select** method includes a SQL **year** function to extract the year component of the *OrderDate* field, and then an **alias** method is used to assign a columm name to the extracted year value. The data is then grouped by the derived *Year* column and the count of rows in each group is calculated before finally the **orderBy** method is used to sort the resulting dataframe.
 
 ## Query data using Spark SQL
 
-As you've seen, the native methods of the DataFrame object enable you to query and analyze data quite effectively. However, many data analysts are more comfortable working with SQL syntax. Spark SQL is a SQL language API in Spark that you can use to run SQL statements, or even persist data in relational tables.
+As you've seen, the native methods of the dataframe object enable you to query and analyze data quite effectively. However, many data analysts are more comfortable working with SQL syntax. Spark SQL is a SQL language API in Spark that you can use to run SQL statements, or even persist data in relational tables.
 
 ### Use Spark SQL in PySpark code
 
@@ -199,9 +198,9 @@ The default language in Azure Synapse Studio notebooks is PySpark, which is a Sp
     ```
 
 2. Run the cell and review the results. Observe that:
-    - The code persists the data in the **df** DataFrame as a temporary view named **salesorders**. Spark SQL supports the use of temporary views or persisted tables as sources for SQL queries.
+    - The code persists the data in the **df** dataframe as a temporary view named **salesorders**. Spark SQL supports the use of temporary views or persisted tables as sources for SQL queries.
     - The **spark.sql** method is then used to run a SQL query against the **salesorders** view.
-    - The results of the query are stored in a DataFrame.
+    - The results of the query are stored in a dataframe.
 
 ### Run SQL code in a cell
 
@@ -223,11 +222,34 @@ While it's useful to be able to embed SQL statements into a cell containing PySp
     - The SQL code references the **salesorder** view that you created previously using PySpark.
     - The output from the SQL query is automatically displayed as the result under the cell.
 
-> **Note**: For more information about Spark SQL and DataFrames, see the [Spark SQL documentation](https://spark.apache.org/docs/2.2.0/sql-programming-guide.html).
+> **Note**: For more information about Spark SQL and dataframes, see the [Spark SQL documentation](https://spark.apache.org/docs/2.2.0/sql-programming-guide.html).
 
 ## Visualize data with Spark
 
-A picture is proverbially worth a thousand words, and a chart is often better than a thousand rows of data. Whilenotebooks in Azure Synapse Analytics include a built in chart view for data that is displayed from a DataFrame or Spark SQL query, it is not designed for comprehensive charting. However, you can use Python graphics libraries like **matplotlib** and **seaborn** to create charts from data in DataFrames.
+A picture is proverbially worth a thousand words, and a chart is often better than a thousand rows of data. While notebooks in Azure Synapse Analytics include a built in chart view for data that is displayed from a dataframe or Spark SQL query, it is not designed for comprehensive charting. However, you can use Python graphics libraries like **matplotlib** and **seaborn** to create charts from data in dataframes.
+
+### View results as a chart
+
+1. Add a new code cell to the notebook, and enter the following code in it:
+
+    ```sql
+    %%sql
+    SELECT * FROM salesorders
+    ```
+
+2. Run the code and observe that it returns the data from the **salesorders** view you created previously.
+3. In the results section beneath the cell, change the **View** option from **Table** to **Chart**.
+4. Use the **View options** button at the top right of the chart to duisplay the options pane for the chart. Then set the options as follows and select **Apply**:
+    - **Chart type**: Bar chart
+    - **Key**: Item
+    - **Values**: Quantity
+    - **Series Group**: *leave blank*
+    - **Aggregation**: Sum
+    - **Stacked**: *Unselected*
+
+5. Verify that the chart looks similar to this:
+
+    ![A bar chart of products by total order quantiies](./images/notebook-chart.png)
 
 ### Get started with **matplotlib**
 
@@ -243,7 +265,7 @@ A picture is proverbially worth a thousand words, and a chart is often better th
     df_spark.show()
     ```
 
-2. Run the code and observe that it returns a Spark DataFrame containing the yearly revenue.
+2. Run the code and observe that it returns a Spark dataframe containing the yearly revenue.
 
     To visualize the data as a chart, we'll start by using the **matplotlib** Python library. This library is the core plotting library on which many others are based, and provides a great deal of flexibility in creating charts.
 
@@ -252,7 +274,7 @@ A picture is proverbially worth a thousand words, and a chart is often better th
     ```Python
     from matplotlib import pyplot as plt
 
-    # matplotlib requires a Pandas DataFrame, not a Spark one
+    # matplotlib requires a Pandas dataframe, not a Spark one
     df_sales = df_spark.toPandas()
 
     # Create a bar plot of revenue by year
@@ -263,7 +285,7 @@ A picture is proverbially worth a thousand words, and a chart is often better th
     ```
 
 4. Run the cell and review the results, which consist of a column chart with the total gross revenue for each year. Note the following features of the code used to produce this chart:
-    - The **matplotlib** library requires a *Pandas* DataFrame, so you need to convert the *Spark* DataFrame returned by the Spark SQL query to this format.
+    - The **matplotlib** library requires a *Pandas* dataframe, so you need to convert the *Spark* dataframe returned by the Spark SQL query to this format.
     - At the core of the **matplotlib** library is the **pyplot** object. This is the foundation for most plotting functionality.
     - The default settings result in a usable chart, but there's considerable scope to customize it
 
@@ -403,8 +425,8 @@ If you've finished exploring Azure Synapse Analytics, you should delete the reso
 
 1. Close the Synapse Studio browser tab and return to the Azure portal.
 2. On the Azure portal, on the **Home** page, select **Resource groups**.
-3. Select the **dp500-*xxxxxxx*** resource group for your Synapse Analytics workspace (not the managed resource group), and verify that it contains the Synapse workspace, storage account, and Spark pool for your workspace.
+3. Select the **dp000-*xxxxxxx*** resource group for your Synapse Analytics workspace (not the managed resource group), and verify that it contains the Synapse workspace, storage account, and Spark pool for your workspace.
 4. At the top of the **Overview** page for your resource group, select **Delete resource group**.
-5. Enter the **dp500-*xxxxxxx*** resource group name to confirm you want to delete it, and select **Delete**.
+5. Enter the **dp000-*xxxxxxx*** resource group name to confirm you want to delete it, and select **Delete**.
 
-    After a few minutes, your Azure Synapse workspace and the managed workspace associated with it will be deleted.
+    After a few minutes, your Azure Synapse workspace resource group and the managed workspace resource group associated with it will be deleted.
