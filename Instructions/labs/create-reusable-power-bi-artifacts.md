@@ -192,6 +192,9 @@ In this task, you will create a local DirectQuery model.
 
 	![](../images/dp500-create-reusable-power-bi-artifacts-image25.png)
 
+	*Note: if you do not see the option to make changes to this model, you need to enable the preview feature, DirectQuery for PBI datasets and AS*
+	- Navigate to **File** > **Options and settings** > **Options**, and in the Preview features section, select the DirectQuery for Power BI datasets and Analysis Services checkbox to enable this preview feature. You may need to restart Power BI Desktop for the change to take effect. 
+
 2. When prompted, read the dialog window message, and then select **Add a local model**.
 
 	![](../images/dp500-create-reusable-power-bi-artifacts-image26.png)
