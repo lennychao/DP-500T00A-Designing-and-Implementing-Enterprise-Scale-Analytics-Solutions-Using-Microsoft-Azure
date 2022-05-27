@@ -1,4 +1,9 @@
-# INF99X: Sample Course
+# Course under development
+
+<!---
+
+# DP-500: Designing and Implementing Enterprise Scale Analytics Solutions Using Microsoft Azure
+
 
 - **[Download Latest Student Handbook and AllFiles Content](../../releases/latest)**
 - **Are you a MCT?** - Have a look at our [GitHub User Guide for MCTs](https://microsoftlearning.github.io/MCT-User-Guide/)
