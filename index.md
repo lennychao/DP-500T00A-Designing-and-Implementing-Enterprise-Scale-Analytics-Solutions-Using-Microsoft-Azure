@@ -4,6 +4,8 @@ permalink: index.html
 layout: home
 ---
 
+# DP-500 - Designing and Implementing Enterprise-Scale Analytics Solutions Using Microsoft Azure
+
 # Content Directory
 
 Hyperlinks to each of the lab exercises are listed below.
