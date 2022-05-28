@@ -41,7 +41,7 @@ In this exercise, prepare your environment.
 4. In the PowerShell pane, enter the following command to clone this repo:
 
     ```
-    git clone https://github.com/GraemeMalcolm/synapsestuff dp-500
+    git clone https://github.com/MicrosoftLearning/mslearn-synapse dp-500
     ```
 
 5. After the repo has been cloned, enter the following commands to change to the **setup** folder and run the **setup.ps1** script it contains:
