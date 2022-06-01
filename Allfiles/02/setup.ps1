@@ -77,7 +77,7 @@ Register-AzResourceProvider -ProviderNamespace Microsoft.Compute
 # Generate unique random suffix
 [string]$suffix =  -join ((48..57) + (97..122) | Get-Random -Count 7 | % {[char]$_})
 Write-Host "Your randomly-generated suffix for Azure resources is $suffix"
-$resourceGroupName = "dp000-$suffix"
+$resourceGroupName = "dp500-$suffix"
 
 # Choose a random region
 Write-Host "Finding an available region. This may take several minutes...";
