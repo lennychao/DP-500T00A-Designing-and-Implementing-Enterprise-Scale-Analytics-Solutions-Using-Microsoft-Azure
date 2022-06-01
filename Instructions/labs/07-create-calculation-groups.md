@@ -2,7 +2,6 @@
 lab:
     title: 'Create calculation groups'
     module: 'Create calculation groups'
-    labprofile: 'https://labondemand.com/AuthenticatedLaunch/117782?providerId=1'
 ---
 # Create calculation groups
 

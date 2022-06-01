@@ -2,7 +2,6 @@
 lab:
     title: 'Monitor data in real time'
     module: 'Monitor data in real time'
-    labprofile: 'https://labondemand.com/AuthenticatedLaunch/117782?providerId=1'
 ---
 
 # Monitor data in real time

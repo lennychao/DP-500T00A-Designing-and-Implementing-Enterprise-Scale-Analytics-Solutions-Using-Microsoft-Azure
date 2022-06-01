@@ -2,7 +2,6 @@
 lab:
     title: 'Create reusable Power BI artifacts'
     module: 'Create reusable Power BI artifacts'
-    labprofile: 'https://labondemand.com/AuthenticatedLaunch/117782?providerId=1'
 ---
 
 # Create reusable Power BI artifacts

@@ -2,7 +2,6 @@
 lab:
     title: 'Create a star schema model'
     module: 'Create a star schema model'
-    labprofile: 'https://labondemand.com/AuthenticatedLaunch/111889?providerId=1'
 ---
 
 # Create a star schema model

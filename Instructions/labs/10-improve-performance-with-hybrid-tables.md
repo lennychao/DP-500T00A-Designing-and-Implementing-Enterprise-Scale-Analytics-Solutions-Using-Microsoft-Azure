@@ -2,7 +2,6 @@
 lab:
     title: 'Improve performance with hybrid tables'
     module: 'Improve performance with hybrid tables'
-    labprofile: 'https://labondemand.com/AuthenticatedLaunch/119734?providerId=1'
 ---
 
 # Improve performance with hybrid tables
