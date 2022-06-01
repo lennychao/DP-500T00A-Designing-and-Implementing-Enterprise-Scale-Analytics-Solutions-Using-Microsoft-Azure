@@ -41,13 +41,14 @@ In this exercise, prepare your environment.
 4. In the PowerShell pane, enter the following command to clone this repo:
 
     ```
-    git clone https://github.com/MicrosoftLearning/mslearn-synapse dp-500
+    rm -r dp500 -f
+    git clone https://github.com/MicrosoftLearning/DP-500T00A-Designing-and-Implementing-Enterprise-Scale-Analytics-Solutions-Using-Microsoft-Azure dp500
     ```
 
 5. After the repo has been cloned, enter the following commands to change to the **setup** folder and run the **setup.ps1** script it contains:
 
     ```
-    cd dp-500/setup
+    cd dp500/Allfiles/04
     ./setup.ps1
     ```
 
