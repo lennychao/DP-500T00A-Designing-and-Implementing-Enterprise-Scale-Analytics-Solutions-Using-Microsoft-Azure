@@ -58,6 +58,24 @@ In this exercise, prepare your environment.
 7. Wait for the script to complete - this typically takes around 20 minutes; but in some cases may take longer.
 8. After creating the Synapse workspace and SQL Pool and loading the data, the script pauses the pool to prevent unnecessary Azure charges. When you're ready to work with your data in Azure Synapse Analytics, you'll need to resume the SQL Pool.
 
+### Clone the repository for this course
+
+1. On the start menu, open the Command Prompt
+    ![](../images/command-prompt.png)
+1. In the command prompt window, navigate to the D drive by typing:
+
+    `d:` 
+
+   Press enter.
+    ![](../images/command-prompt-2.png)
+
+
+1. In the command prompt window, enter the following command to download the course files and save them to a folder called DP500.
+    
+	`git clone https://github.com/MicrosoftLearning/DP-500T00A-Designing-and-Implementing-Enterprise-Scale-Analytics-Solutions-Using-Microsoft-Azure DP500`
+   
+
+1. When the repository has been cloned, open the D drive in the file explorer to ensure the files have been downloaded.
 
 ### Set up Power BI
 

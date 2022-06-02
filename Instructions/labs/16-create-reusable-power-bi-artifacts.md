@@ -24,6 +24,25 @@ In this lab, you learn how to:
 
 In this exercise, you will prepare your environment.
 
+### Clone the repository for this course
+
+1. On the start menu, open the Command Prompt
+    ![](../images/command-prompt.png)
+1. In the command prompt window, navigate to the D drive by typing:
+
+    `d:` 
+
+   Press enter.
+    ![](../images/command-prompt-2.png)
+
+
+1. In the command prompt window, enter the following command to download the course files and save them to a folder called DP500.
+    
+	`git clone https://github.com/MicrosoftLearning/DP-500T00A-Designing-and-Implementing-Enterprise-Scale-Analytics-Solutions-Using-Microsoft-Azure DP500`
+   
+
+1. When the repository has been cloned, open the D drive in the file explorer to ensure the files have been downloaded.
+
 ### Sign in to the Power BI service
 
 In this task, you will sign in to the Power BI service, start a trial license, and create a workspace.
