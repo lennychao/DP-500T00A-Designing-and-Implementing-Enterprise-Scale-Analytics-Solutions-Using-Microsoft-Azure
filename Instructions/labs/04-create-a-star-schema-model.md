@@ -61,12 +61,14 @@ In this exercise, prepare your environment.
 ### Clone the repository for this course
 
 1. On the start menu, open the Command Prompt
+
     ![](../images/command-prompt.png)
 1. In the command prompt window, navigate to the D drive by typing:
 
     `d:` 
 
    Press enter.
+
     ![](../images/command-prompt-2.png)
 
 
