@@ -36,9 +36,13 @@ In this exercise, you will prepare your environment.
 
 1. In the command prompt window, enter the following command to download the course files and save them to a folder called DP500.
     
-	`git clone https://github.com/MicrosoftLearning/DP-500T00A-Designing-and-Implementing-Enterprise-Scale-Analytics-Solutions-Using-Microsoft-Azure DP500`
+    ```
+    git clone --no-checkout https://github.com/MicrosoftLearning/DP-500T00A-Designing-and-Implementing-Enterprise-Scale-Analytics-Solutions-Using-Microsoft-Azure         DP500
+    cd DP500
+    git sparse-checkout set Allfiles/*
+    git read-tree -mu HEAD
+    ```
    
-
 1. When the repository has been cloned, open the D drive in the file explorer to ensure the files have been downloaded.
 
 ### Set up Power BI Desktop
