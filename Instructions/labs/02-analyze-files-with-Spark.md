@@ -1,7 +1,7 @@
 ---
 lab:
     title: 'Analyze data in a data lake with Spark'
-    module: 'Use Azure Synapse spark pools to query files in a data lake'
+    module: 'Model, query, and explore data in Azure Synapse'
 ---
 
 # Analyze data in a data lake with Spark
