@@ -1,4 +1,4 @@
-# Course under development
+# This repo will be archived. Please do not use.
 
 <!---
 
